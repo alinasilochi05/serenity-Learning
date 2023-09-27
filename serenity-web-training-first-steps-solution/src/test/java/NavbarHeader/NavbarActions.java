@@ -1,2 +1,6 @@
-package NavbarHeader;public class NavbarActions {
+package NavbarHeader;
+
+import net.serenitybdd.core.steps.UIInteractionSteps;
+
+public class NavbarActions extends UIInteractionSteps {
 }

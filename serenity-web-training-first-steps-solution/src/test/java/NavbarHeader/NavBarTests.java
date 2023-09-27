@@ -1,2 +1,4 @@
-package NavbarHeader;public class NavBarTests {
+package NavbarHeader;
+
+public class NavBarTests {
 }
