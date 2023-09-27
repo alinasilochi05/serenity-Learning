@@ -1,7 +1,7 @@
 package authentificationPage;
 
 public enum User {
-    VALID_USER("test.auto12", "test"),
+    VALID_USER("test.auto1", "test"),
     INVALID_USER("test", "test");
 
     private final String username;

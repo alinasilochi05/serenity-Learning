@@ -1,2 +1,4 @@
-package NavbarHeader;public class NavbarActions {
+package NavbarHeader;
+
+public class NavbarActions {
 }
