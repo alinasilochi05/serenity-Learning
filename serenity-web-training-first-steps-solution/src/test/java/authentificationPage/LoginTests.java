@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Sleeper;
 
 
 @RunWith(SerenityRunner.class)
@@ -22,11 +23,9 @@ public class LoginTests {
 
     MyAccountPO homePagePO;
     @Test
-    public void loginAsValidUser(){
+    public void loginAsValidUser() throws InterruptedException {
         login.login(User.VALID_USER);
-        Assert.assertEquals(homePagePO.getTitle(), "Account Login");
-
-
+        Assert.assertEquals(homePagePO.getTitle(), "My Account");
     }
     @Test
     public void loginAsInvalidUser(){
