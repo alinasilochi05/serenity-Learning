@@ -19,13 +19,11 @@ public class LoginTests {
     @Steps
     LoginActions login;
 
-
-
-    MyAccountPO homePagePO;
+    MyAccountPO myAccountPO;
     @Test
-    public void loginAsValidUser() throws InterruptedException {
+    public void loginAsValidUser() {
         login.login(User.VALID_USER);
-        Assert.assertEquals(homePagePO.getTitle(), "My Account");
+        Assert.assertEquals(myAccountPO.getTitle(), "My Account");
     }
     @Test
     public void loginAsInvalidUser(){

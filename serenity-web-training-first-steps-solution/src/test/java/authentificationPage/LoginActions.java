@@ -6,6 +6,7 @@ import net.thucydides.core.annotations.Step;
 
 public class LoginActions extends UIInteractionSteps {
 
+
     @Step("Login as{0}")
     public void login(User user){
 
