@@ -9,7 +9,6 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class NavbarActions extends UIInteractionSteps {
 
@@ -26,7 +25,7 @@ public class NavbarActions extends UIInteractionSteps {
     @Step("Check the hover functionality - Welcome Back Text")
     public void hoverOverWelcomeBackText() {
         Actions actions = new Actions(getDriver());
-        WebElement welcomeBackText = find(NavbarPo.WELCOME_BACK_TEXT);
+        WebElement welcomeBackText = find(NavbarPo.MY_ACCOUNT_MENU);
         actions.moveToElement(welcomeBackText).perform();
     }
 
@@ -35,15 +34,28 @@ public class NavbarActions extends UIInteractionSteps {
         return find(NavbarPo.MY_ACCOUNT_SUBMENU).isDisplayed();
     }
 
+    ArrayList<String> myAccountMenu = new ArrayList<>();
     @Step("Create a list with all elements in MY Account Menu")
     public void createMyAccountElementsList() {
-        WebElement subMenu = find(NavbarPo.MY_ACCOUNT_SUBMENU);
-        List<WebElement> listElements = subMenu.findElements(By.tagName("li"));
-        ArrayList<String> labels = new ArrayList<String>();
-        for (WebElement listElement : listElements) {
-            labels.add(listElement.findElement(By.tagName("a")).getAttribute("href"));
+        ArrayList<WebElementFacade> subMenuElements = findAll(NavbarPo.MY_ACCOUNT_SUBMENU);
+        for (WebElementFacade element : subMenuElements) {
+            myAccountMenu.add(element.getText());
         }
-        System.out.println(labels);
+    }
+
+
+    @Step("Add elements in expected My Account Submenu List")
+    public void addElementsInMyAccountSubmenu() {
+        NavbarPo.myAccountSubmenuExpectedElements.add("  Login");
+        NavbarPo.myAccountSubmenuExpectedElements.add("  Account Dashboard");
+        NavbarPo.myAccountSubmenuExpectedElements.add("  My wish list");
+        NavbarPo.myAccountSubmenuExpectedElements.add("  Edit account details");
+        NavbarPo.myAccountSubmenuExpectedElements.add("  Change password");
+        NavbarPo.myAccountSubmenuExpectedElements.add("  Manage Address Book");
+        NavbarPo.myAccountSubmenuExpectedElements.add("    Order history");
+        NavbarPo.myAccountSubmenuExpectedElements.add("    Transaction history");
+        NavbarPo.myAccountSubmenuExpectedElements.add("    Downloads");
+        NavbarPo.myAccountSubmenuExpectedElements.add("    Downloads");
     }
 
 
@@ -73,17 +85,18 @@ public class NavbarActions extends UIInteractionSteps {
         find(NavbarPo.SEARCH_BOX).sendKeys(searchedText);
     }
 
-    @Step
+    @Step("Check if loop icon is displayed")
     public void clickLoopIcon() {
         find(NavbarPo.LOOP_ICON).click();
     }
 
-    @Step
+
+    @Step("Check if Search Box List is opened")
     public boolean isSearchBoxOpened() {
         return find(NavbarPo.SEARCH_BAR_OPENED).isDisplayed();
     }
 
-    @Step
+    @Step("Check if Search Box categories are clickable")
     public void clickSearchBoxCategory(String text) {
         List<WebElementFacade> categories = findAll(By.xpath("//*[@id=\"main_menu_top\"]/li/a"));
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -91,7 +104,6 @@ public class NavbarActions extends UIInteractionSteps {
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         for (WebElementFacade category : categories) {
             if (category.getText().trim().contains(text)) {
-                System.out.println(category.getText());
                 category.click();
                 return;
             }
@@ -131,7 +143,7 @@ public class NavbarActions extends UIInteractionSteps {
     }
 
     @Step("Check if facebook icon is clickable")
-    public void clickFacebookIcon(){
+    public void clickFacebookIcon() {
         find(NavbarPo.FACEBOOK_ICON).click();
     }
 

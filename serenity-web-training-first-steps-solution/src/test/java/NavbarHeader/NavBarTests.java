@@ -11,6 +11,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 import static java.lang.Thread.sleep;
@@ -18,7 +19,7 @@ import static java.lang.Thread.sleep;
 @RunWith(SerenityRunner.class)
 public class NavBarTests {
     @Managed
-    WebDriver webDriver;
+    WebDriver driver;
 
 
     @Steps
@@ -49,18 +50,23 @@ public class NavBarTests {
 
     //WELCOME BACK SECTION TESTS
     @Test
-    public void hoverWelcomeBackText(){
+    public void openMyAccountMenu(){
         navbarActions.hoverOverWelcomeBackText();
         Assert.assertTrue("My account submenu is not displayed", navbarActions.isMyAccountMenuDisplayed());
     }
 
     @Test
-    public void checkIfMainMenuDropdownIsDisplayed(){
-       Assert.assertTrue("Main Menu is not displayed", navbarActions.isMainMenuDisplayed());
+    public void checkIfAllExpectedElementAreDisplayed(){
+        navbarActions.hoverOverWelcomeBackText();
+        Assert.assertEquals(navbarActions.myAccountMenu, NavbarPo.myAccountSubmenuExpectedElements);
     }
 
 
     //MAIN MENU TESTS
+    @Test
+    public void checkIfMainMenuDropdownIsDisplayed(){
+       Assert.assertTrue("Main Menu is not displayed", navbarActions.isMainMenuDisplayed());
+    }
     @Test
     public void openMainMenuDropdown(){
         navbarActions.clickMainMenuDropdown();
@@ -68,7 +74,7 @@ public class NavBarTests {
 
     @Test
     public void selectValueFromMainMenuDropdown(){
-        navbarActions.selectOptionByVisibleText("Account");
+        navbarActions.selectOptionByVisibleText(" Account");
         Assert.assertEquals(myAccountPO.getTitle(), "My Account");
     }
 
@@ -104,15 +110,17 @@ public class NavBarTests {
     @Test
     public void changeCurrency()  {
         navbarActions.hoverOverCurrency();
-        navbarActions.waitForUsdCurrencyToBeVisible();
+//       JavascriptExecutor js = ((JavascriptExecutor) driver);
+//       js.executeScript("arguments[0].click();", NavbarPo.USD_CURRENCY);
+          navbarActions.waitForUsdCurrencyToBeVisible();
         navbarActions.clickUSDCurrency();
-        Assert.assertEquals(" Pound Sterling", navbarActions.getActualCurrencyText());
+        Assert.assertEquals("$ US DOLLAR", navbarActions.getActualCurrencyText());
     }
 
     @Test
     public void openFacebookPage(){
          navbarActions.clickFacebookIcon();
-        Assert.assertEquals(webDriver.getCurrentUrl(), "https://www.facebook.com/");
+        Assert.assertEquals(driver.getCurrentUrl(), "https://www.facebook.com/");
     }
 
 
